@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/daphnecastellow-dot/hingecheck/schema.json",
+  "title": "Hingecheck 0.1 project",
+  "type": "object",
+  "required": ["format", "title", "created_at", "authorities", "assumptions"],
+  "properties": {
+    "format": {"const": "hingecheck/0.1"},
+    "title": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string", "minLength": 1},
+    "authorities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "location", "kind", "note"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1},
+          "location": {"type": "string", "minLength": 1},
+          "kind": {"enum": ["tool-record", "document", "repository", "commit", "specification", "conversation", "other"]},
+          "note": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text", "status", "authorities", "recheck_when", "status_history", "dependents"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "text": {"type": "string", "minLength": 1},
+          "status": {"enum": ["declared", "supported", "uncertain", "challenged", "invalidated"]},
+          "authorities": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "recheck_when": {"type": "string"},
+          "status_history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["status", "reason", "authorities"],
+              "properties": {
+                "status": {"enum": ["declared", "supported", "uncertain", "challenged", "invalidated"]},
+                "reason": {"type": "string"},
+                "authorities": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+              },
+              "additionalProperties": false
+            }
+          },
+          "dependents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "kind", "dependency", "note"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "kind": {"enum": ["claim", "evidence", "classification", "conflict", "hypothesis", "writing-unit", "conclusion", "other"]},
+                "dependency": {"enum": ["requires", "relies-on", "strengthens", "weakens-if-false", "invalid-if-false", "interpretive-context"]},
+                "note": {"type": "string"}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
