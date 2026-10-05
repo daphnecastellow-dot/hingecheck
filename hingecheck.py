@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Track explicit assumptions and surface downstream records that need rechecking."""
+"""Track explicit assumptions and surface downstream records that need rechecking.\n\nA moved hinge creates a review set, never an automatic verdict cascade.\n"""
 
 from __future__ import annotations
 
