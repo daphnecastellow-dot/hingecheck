@@ -1,0 +1,40 @@
+name: Hingecheck tests
+
+on:
+  push:
+    paths:
+      - "hingecheck.py"
+      - "pyproject.toml"
+      - "schema.json"
+      - "tests/**"
+      - "examples/**"
+      - ".github/workflows/hingecheck-tests.yml"
+  pull_request:
+    paths:
+      - "hingecheck.py"
+      - "pyproject.toml"
+      - "schema.json"
+      - "tests/**"
+      - "examples/**"
+      - ".github/workflows/hingecheck-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Validate demo
+        run: python hingecheck.py validate examples/demo.json
+      - name: Render demo
+        run: |
+          python hingecheck.py render examples/demo.json -o /tmp/hingecheck-demo.md
+          python hingecheck.py impact examples/demo.json H001 -o /tmp/hingecheck-impact.md
+          python hingecheck.py mermaid examples/demo.json -o /tmp/hingecheck-demo.mmd
