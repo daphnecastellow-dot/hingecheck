@@ -1,0 +1,55 @@
+{
+  "format": "hingecheck/0.1",
+  "title": "North Reach assumption dependencies",
+  "created_at": "2026-10-05T00:10:00Z",
+  "authorities": [
+    {
+      "id": "A001",
+      "label": "Sourceweave lineage check",
+      "location": "sourceweave:north-reach:S004",
+      "kind": "tool-record",
+      "note": "Later provenance review found a relationship to S002."
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "H001",
+      "text": "S004 is independent of S002.",
+      "status": "challenged",
+      "authorities": ["A001"],
+      "recheck_when": "The dependency relationship between S004 and S002 is clarified.",
+      "status_history": [
+        {
+          "status": "uncertain",
+          "reason": "No source relationship had yet been established.",
+          "authorities": ["A001"]
+        },
+        {
+          "status": "challenged",
+          "reason": "S004 cites material derived from S002.",
+          "authorities": ["A001"]
+        }
+      ],
+      "dependents": [
+        {
+          "id": "E007",
+          "kind": "evidence",
+          "dependency": "relies-on",
+          "note": "Independence affects whether this counts as separate corroboration."
+        },
+        {
+          "id": "C004",
+          "kind": "conclusion",
+          "dependency": "weakens-if-false",
+          "note": "The conclusion uses the apparent number of independent reports."
+        },
+        {
+          "id": "U006",
+          "kind": "writing-unit",
+          "dependency": "weakens-if-false",
+          "note": "The final wording describes the reports as independently corroborating."
+        }
+      ]
+    }
+  ]
+}
